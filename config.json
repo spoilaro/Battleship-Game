@@ -1,0 +1,12 @@
+{
+  "available_ships": [
+    2,
+    3,
+    3,
+    4,
+    5
+  ],
+  "grid_size": 10,
+  "game_version": "1.0.0",
+  "player_count": 2
+}
