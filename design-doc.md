@@ -34,6 +34,10 @@ Player actions:
 _Ship_
 Ship contains cells and it's state is either OK or DESTROYED.
 
+## AI Algorithm
+
+[Propability Density Functions](https://www.datagenetics.com/blog/december32011/)
+
 ## Testing
 
 Unit tests are in `tests/` directory. TODO: More explaning

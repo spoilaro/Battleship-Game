@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 import numpy as np
-from typing import Any
+from typing import Any, Optional
 
 
 class ShipState(Enum):
@@ -10,16 +10,30 @@ class ShipState(Enum):
     SAFE = 2
 
 
+class Printing:
+
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+
 @dataclass
 class Position:
     x: int
     y: int
-    hit: bool
+    hit: bool | None = None
 
 
 @dataclass
 class Ship:
-    cells: list[Position] | None
+    hits: int
     state: ShipState
     size: int
     id: int
@@ -36,5 +50,5 @@ class Config():
 @dataclass
 class PlayerData:
     grid: Any
-    id: int
-    available_ships: list[int]
+    pre_filled_grid: bool | None
+    available_ships: list[int] | None
