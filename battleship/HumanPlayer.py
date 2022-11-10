@@ -56,17 +56,31 @@ class HumanPlayer(Player):
 
         print("Human Player is firing")
 
-        raw_input = input("Cordinates for the shot (A0): ")
+        while (True):
+            raw_input = input("Cordinates for the shot (A0-K9): ")
 
-        raw_x_pos = raw_input[0]
-        raw_y_pos = raw_input[1]
-        # Converts the input to index, e.g A => 0
-        x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
-        y_pos = int(raw_y_pos)
+            raw_x_pos = raw_input[0]
+            raw_y_pos = raw_input[1]
+            # Converts the input to index, e.g A => 0
+            x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
+            y_pos = int(raw_y_pos)
+
+            if self.validate_input(x_pos, y_pos) and len(raw_input) == 2:
+                break
+            else:
+                print("Coordinates not valid, try again")
 
         self.last_shot = (x_pos, y_pos)
 
         return (x_pos, y_pos)
+
+    def validate_input(self, x_pos: int, y_pos: int) -> bool:
+        """Checks that the given coordinates are on the grid"""
+
+        if x_pos >= 0 and x_pos < 10 and y_pos >= 0 and y_pos < 10:
+            return True
+        else:
+            return False
 
     def feed_back(self, hit):
         if hit:
