@@ -4,6 +4,10 @@ from battleship.Player import Player
 from battleship import PlayerData, Position
 from typing import Tuple
 import random
+from battleship.PrettyPrint import PrettyPrint
+
+
+pp = PrettyPrint()
 
 
 class ComputerPlayer(Player):
@@ -26,7 +30,7 @@ class ComputerPlayer(Player):
     def fire(self) -> Tuple[int, int]:
         """Fire a shot to a cell in the opponent's grid"""
 
-        print("AI is firing")
+        pp.pprint("AI is firing", False)
 
         firing_coordinates = self.hunt_algoritm()
 

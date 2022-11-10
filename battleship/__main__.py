@@ -4,6 +4,10 @@ from battleship import Config
 
 
 from battleship.Game import Game
+from battleship.PrettyPrint import PrettyPrint
+
+
+pp = PrettyPrint()
 
 
 def main() -> None:
@@ -27,7 +31,7 @@ def main() -> None:
     game = Game(config)
     winner = game.run()
 
-    print(winner)
+    pp.pprint(f"WINNER: {winner}")
 
 
 if __name__ == "__main__":

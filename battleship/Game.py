@@ -8,6 +8,11 @@ from battleship.Player import Player
 import os
 import random
 from typing import Tuple
+from battleship.PrettyPrint import PrettyPrint
+import os
+
+
+pp = PrettyPrint()
 
 
 class Game:
@@ -58,6 +63,7 @@ class Game:
             # grid=np.copy(self.empty_grid),
             grid=np.copy(self.template_grid),
             available_ships=self.config.available_ships,
+            # pre_filled_grid=False
             pre_filled_grid=True
 
         )
@@ -75,7 +81,7 @@ class Game:
         players.remove(starting_player)
         other_player = players[0]
 
-        print(f"{starting_player} starts!")
+        pp.pprint(f"{starting_player} starts")
 
         # Main game loop
         while (True):

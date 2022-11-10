@@ -4,6 +4,11 @@ from battleship.Player import Player
 from battleship import PlayerData
 from typing import Tuple
 import numpy as np
+from battleship.PrettyPrint import PrettyPrint
+import os
+
+
+pp = PrettyPrint()
 
 
 class HumanPlayer(Player):
@@ -29,15 +34,15 @@ class HumanPlayer(Player):
             """Helper inner function to place the ship"""
             for cell in range(ship.size):
                 if self._check_cell(y_pos, x_pos + cell):  # Cell was occupied
-                    print("Ships can't overlap, try again!")
+                    pp.pprint("Ships can't overlap, try again!")
                     return False
                 else:
                     self.data.grid[y_pos][x_pos +
                                           cell] = ship.id  # Cell filled succesfully
-            self._show_grid()
+            pp.gprint(self.data.grid)
             return True
 
-        print("Ship positions, e.g A1")
+        pp.pprint("Ship positions, e.g A1")
         for ship in self.ships:
 
             while (True):
@@ -54,7 +59,7 @@ class HumanPlayer(Player):
     def fire(self) -> Tuple[int, int]:
         """Fire a shot to a cell in the opponent's grid"""
 
-        print("Human Player is firing")
+        pp.pprint("Human Player is firing", True)
 
         while (True):
             raw_input = input("Cordinates for the shot (A0-K9): ")
@@ -68,7 +73,7 @@ class HumanPlayer(Player):
             if self.validate_input(x_pos, y_pos) and len(raw_input) == 2:
                 break
             else:
-                print("Coordinates not valid, try again")
+                pp.pprint("Coordinates not valid, try again")
 
         self.last_shot = (x_pos, y_pos)
 
@@ -83,12 +88,13 @@ class HumanPlayer(Player):
             return False
 
     def feed_back(self, hit):
+        os.system('cls' if os.name == 'nt' else 'clear')
         if hit:
             self.target_grid[self.last_shot[1]][self.last_shot[0]] = 1
         else:
             self.target_grid[self.last_shot[1]][self.last_shot[0]] = -1
-        print("PLAYER SHIPS")
-        print(self.grid)
+        pp.pprint("PLAYER SHIPS", True)
+        pp.gprint(self.grid)
 
-        print("PLAYER TARGETS")
-        print(self.target_grid)
+        pp.pprint("PLAYER TARGETS", True)
+        pp.gprint(self.target_grid)

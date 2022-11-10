@@ -1,6 +1,10 @@
 
 from battleship import Ship, ShipState, PlayerData, Printing
 from typing import Tuple
+from battleship.PrettyPrint import PrettyPrint
+
+
+pp = PrettyPrint()
 
 
 class Player:
@@ -33,7 +37,8 @@ class Player:
         cell = self.grid[y_pos][x_pos]
 
         if cell != 0 and cell > 0:
-            print(f"HIT!, Ship {cell} was hit")
+
+            pp.pprint(f"HIT!, Ship {cell} was hit")
             self.grid[y_pos][x_pos] = -cell
 
             ship_index = self._find_ship(cell)
@@ -48,7 +53,8 @@ class Player:
             return True
 
         else:
-            print("MISS")
+            pp.pprint("MISS")
+            print()
             return False
 
     def status(self):
@@ -70,21 +76,6 @@ class Player:
     def feed_back(self, hit: bool):
         """Receives feedback hit/miss"""
         # This method is a stub which is implemented in child classes
-
-    def _show_grid(self):
-        """Prints the grid to stdout"""
-        grid = self.data.grid
-
-        for column in grid:
-            for cell in column:
-
-                if cell != 0:
-                    color = Printing.RED
-                else:
-                    color = Printing.BLUE
-
-                print(color + f" {cell} " + Printing.END, end="")
-            print()
 
     def _create_ships(self, available_ships) -> list[Ship]:
         """Creates the ships for the player"""
