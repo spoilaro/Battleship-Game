@@ -48,10 +48,11 @@ class ComputerPlayer(Player):
 
         if len(self.hunt_list) == 0:
 
-            # x_pos = random.randint(0, 9)
-            # y_pos = random.randint(0, 9)
+            x_pos = random.randint(0, 9)
+            y_pos = random.randint(0, 9)
 
-            return random.choice(self.generate_empties())
+            # return random.choice(self.generate_empties())
+            return (x_pos, y_pos)
 
         else:
 
@@ -67,6 +68,7 @@ class ComputerPlayer(Player):
                 if self.grid[y][x] != -1:
                     empties.append((x, y))
 
+        print(len(empties))
         return empties
 
     def feed_back(self, hit: bool):
@@ -78,13 +80,13 @@ class ComputerPlayer(Player):
 
             self.hunt_list = [
                 # One UP
-                (last_x, last_y+1),
-                # One DOWN
-                (last_x, last_y-1),
-                # One LEFT
-                (last_x-1, last_y),
-                # One RIGHT
-                (last_x+1, last_y),
+                # (last_x, last_y+1) if last_y != 9 else (last_x, last_y),
+                # # One DOWN
+                # (last_x, last_y-1) if last_y != 0 else (last_x, last_y),
+                # # One LEFT
+                # (last_x-1, last_y) if last_x != 0 else (last_x, last_y),
+                # # One RIGHT
+                # (last_x+1, last_y) if last_x != 9 else (last_x, last_y),
             ]
 
         else:

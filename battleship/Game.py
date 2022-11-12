@@ -27,7 +27,7 @@ class Game:
         self.template_grid = self.deserialize_random_grid()
         self.human_player, self.ai_player = self.init_players()
 
-    def deserialize_random_grid(self):
+    def deserialize_random_grid():
         """
             Select random grid template from templates directory
             and deserialize it

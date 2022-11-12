@@ -2,40 +2,77 @@ import numpy as np
 import unittest
 from battleship.ComputerPlayer import ComputerPlayer
 from battleship import PlayerData
+from battleship.Game import Game
+from battleship.PrettyPrint import PrettyPrint
+import random
+import json
+import os
+
+pp = PrettyPrint()
 
 
 class TestComputerPlayer(unittest.TestCase):
 
     def setUp(self):
-        # Loading the configuration for the game
-        # with open("config.json", "r") as f:
-        #     json_config = json.load(f)
-        #
-        #     try:
-        #         # Makes sure that provided configuration is correct
-        #         config = Config(**json_config)
-        #     except TypeError as e:
-        #         print(f"Provided undefined configuration, error: {e}")
-        #         exit(1)
 
-        test_data = PlayerData(
-            grid=np.zeros((10, 10), dtype=int),
+        with open("config.json", "r") as f:
+            self.config = json.load(f)
+
+        p1_data = PlayerData(
+            grid=np.copy(Game.deserialize_random_grid()),
             pre_filled_grid=True,
-            available_ships=[]
+            available_ships=self.config["available_ships"],
         )
 
-        self.player = ComputerPlayer(test_data)
+        p1 = ComputerPlayer(p1_data)
 
-    def test_fire(self):
+        p2_data = PlayerData(
+            grid=np.copy(Game.deserialize_random_grid()),
+            available_ships=self.config["available_ships"],
+            pre_filled_grid=True
+        )
 
-        for _ in range(100):
-            x_pos, y_pos = self.player.fire()
+        p2 = ComputerPlayer(p2_data)
 
-            self.assertTrue((x_pos < 10 and x_pos > -1),
-                            f"X position should be inside the grid, got: {x_pos}")
+        self.players = [p1, p2]
 
-            self.assertTrue((y_pos < 10 and x_pos > -1),
-                            f"Y position should be inside the grid, got: {y_pos}")
+    def test_run(self):
+
+        starting_player = random.choice(self.players)
+        self.players.remove(starting_player)
+        other_player = self.players[0]
+
+        pp.pprint(f"{starting_player} starts")
+
+        # Main game loop
+
+        rounds = 0
+        while (True):
+
+            rounds += 1
+
+            print(f"ROUNDS: {rounds}")
+
+            starting_player.feed_back(
+                other_player.check_hit(starting_player.fire()))
+            if not other_player.status():
+                print("WINNER")
+                # return starting_player
+                self.assertTrue(starting_player,
+                                "Starting player should exist")
+
+            other_player.feed_back(
+                starting_player.check_hit(other_player.fire()))
+
+            if not starting_player.status():
+                # return other_player
+                print("WINNER")
+                self.assertTrue(starting_player,
+                                "Starting player should exist")
+
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(starting_player.grid)
+            print(starting_player.target_grid)
 
 
 if __name__ == '__main__':
