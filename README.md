@@ -7,12 +7,12 @@ Battleship game with AI which uses a hunting algorithm to select firing coordina
 Starting the game:
 
 
-![Start image](https://user-images.githubusercontent.com/68746087/201474680-5493d143-ff89-47ce-9448-493c169e3633.png)
+<img src="https://user-images.githubusercontent.com/68746087/201474680-5493d143-ff89-47ce-9448-493c169e3633.png" alt="start image" width=250 />
 
 Playing the game:
 
 
-![Playing the game](https://user-images.githubusercontent.com/68746087/201474791-038890d3-53a7-4223-b4b4-071a6493db61.png)
+<img src="https://user-images.githubusercontent.com/68746087/201474791-038890d3-53a7-4223-b4b4-071a6493db61.png" alt="start image" width=250 />
 
 ## Installing
 
