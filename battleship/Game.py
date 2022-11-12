@@ -60,11 +60,11 @@ class Game:
         ai_player = ComputerPlayer(ai_data)
 
         human_data = PlayerData(
-            # grid=np.copy(self.empty_grid),
-            grid=np.copy(self.template_grid),
+            grid=np.copy(self.empty_grid),
+            # grid=np.copy(self.template_grid),
             available_ships=self.config.available_ships,
-            # pre_filled_grid=False
-            pre_filled_grid=True
+            pre_filled_grid=False
+            # pre_filled_grid=True
 
         )
         human_player = HumanPlayer(human_data)

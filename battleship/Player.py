@@ -85,6 +85,19 @@ class Player:
         ]
         return ships
 
+    def _check_boundary(self, x_pos: int, y_pos: int) -> bool:
+        """Checks that the coordinates given don't violate the grid boundaries"""
+
+        try:
+            self.data.grid[y_pos][x_pos]
+            return False
+        except Exception:
+            # Ship violates the boundaries
+            return True
+
+        # The ship does not violate the boundaries
+        return False
+
     def __repr__(self):
         """Print Player objects better"""
         return f"{self.name}"

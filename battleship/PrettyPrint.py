@@ -1,5 +1,3 @@
-from datetime import datetime
-import numpy as np
 from battleship import Printing
 
 
@@ -8,8 +6,9 @@ class PrettyPrint:
         pass
 
     def pprint(self, msg: str, human: bool = None):
+        """Prints the messages from the game with additional colors"""
 
-        if human == True:
+        if human is True:
             player = "HUMAN"
             accent = Printing.GREEN
         elif human is None:
@@ -22,25 +21,27 @@ class PrettyPrint:
         output = f"[{accent}{player}{Printing.END}] {msg}"
         print(output)
 
-    def gprint(self, grid):
+    def gprint(self, grid) -> None:
         """
-        Prints the grid
-        Modified from: https://stackoverflow.com/questions/60842728/developing-a-function-to-print-a-grid-in-python
+        Prints the grid in pretty colors
         """
         for column in grid:
             for cell in column:
                 print(f" {self._icon(cell)}", end="")
 
-            # for _ in range(10):
-            #     print("-", end="")
             print()
         print()
 
-    def _icon(self, cell: int):
+    def _icon(self, cell: int) -> str:
+        """Returns a colored string based on the cell value"""
+
         if cell == 0:
+            # Water
             return Printing.BLUE+f"O"+Printing.END
 
         elif cell > 0:
+            # Player's ship alive OR Player hit AI's ship
             return Printing.GREEN+f"O"+Printing.END
         else:
-            return Printing.RED+f"O"+Printing.END
+            # Player's ship got hit OR Player missed a shot
+            return f"O"
