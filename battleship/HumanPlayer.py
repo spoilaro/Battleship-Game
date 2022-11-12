@@ -103,7 +103,7 @@ class HumanPlayer(Player):
         pp.pprint("Human Player is firing", True)
 
         while (True):
-            raw_input = input("Cordinates for the shot (A0-K9): ")
+            raw_input = input("Cordinates for the shot (A0-J9): ")
 
             raw_x_pos = raw_input[0]
             raw_y_pos = raw_input[1]
