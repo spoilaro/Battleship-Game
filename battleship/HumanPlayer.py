@@ -63,13 +63,14 @@ class HumanPlayer(Player):
                 # Fills the valid cells with actual values
                 self.data.grid[place[1]][place[0]] = ship.id
 
-            pp.gprint(self.data.grid)
             return True
 
         pp.pprint("Ship positions, e.g A1")
         for ship in self.ships:
 
             while (True):
+                os.system('cls' if os.name == 'nt' else 'clear')
+                pp.gprint(self.data.grid)
 
                 # Ask for the position of the ship
                 raw_input = input(
@@ -93,6 +94,8 @@ class HumanPlayer(Player):
                     break
                 else:
                     pp.pprint("Coordinates not valid, try again")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        pp.gprint(self.data.grid)
 
     def fire(self) -> Tuple[int, int]:
         """Fire a shot to a cell in the opponent's grid"""

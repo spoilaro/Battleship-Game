@@ -25,7 +25,15 @@ class PrettyPrint:
         """
         Prints the grid in pretty colors
         """
-        for column in grid:
+
+        # Column indeces
+        print(" ", end="")
+        for index, column in enumerate(grid):
+            print(f" {Printing.RED}{chr(index + 65)}{Printing.END}", end="")
+        print()
+
+        for index, column in enumerate(grid):
+            print(f"{Printing.RED}{index}{Printing.END}", end="")
             for cell in column:
                 print(f" {self._icon(cell)}", end="")
 
