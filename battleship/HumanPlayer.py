@@ -6,6 +6,7 @@ from typing import Tuple
 import numpy as np
 from battleship.PrettyPrint import PrettyPrint
 import os
+import time
 
 
 pp = PrettyPrint()
@@ -73,6 +74,7 @@ class HumanPlayer(Player):
                 pp.gprint(self.data.grid)
 
                 # Ask for the position of the ship
+                print("Example: A4")
                 raw_input = input(
                     f"Ship [{''.join(ship.size*'X')}]: ")
                 raw_x_pos = raw_input[0]
@@ -87,6 +89,8 @@ class HumanPlayer(Player):
 
                 if direction != "V" and direction != "H":
                     print("Direction is not valid!")
+                    time.sleep(2)
+
                     continue
 
                 # Validate the input coordinates
@@ -94,6 +98,7 @@ class HumanPlayer(Player):
                     break
                 else:
                     pp.pprint("Coordinates not valid, try again")
+                    time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
         pp.gprint(self.data.grid)
 

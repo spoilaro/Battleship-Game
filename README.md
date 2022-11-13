@@ -6,11 +6,9 @@ Battleship game with AI which uses a hunting algorithm to select firing coordina
 
 Starting the game:
 
-
 <img src="https://user-images.githubusercontent.com/68746087/201474680-5493d143-ff89-47ce-9448-493c169e3633.png" alt="start image" width=250 />
 
 Playing the game:
-
 
 <img src="https://user-images.githubusercontent.com/68746087/201474791-038890d3-53a7-4223-b4b4-071a6493db61.png" alt="start image" width=250 />
 
@@ -32,8 +30,10 @@ The game chooses randomly which player starts. The AI has a host of ship templat
 ## Development
 
 - Uses `mypy` for type checking – `mypy battleship/` to type check the project.
+- At the moment testing is only implemented for the ComputerPlayer
+  - Run the test for this with `python -m unittest tests/test_ComputerPlayer.py`
+    TODO: More test cases for everything
 
 ## Template Creator
+
 Open the [template creator](./template_creator/__main__.py) and edit the grid. After editing run `python -m template_creator` and give a name to template when prompted. Templates serialized to [template folder](./templates/).
-
-

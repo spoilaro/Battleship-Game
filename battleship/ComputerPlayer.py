@@ -68,8 +68,26 @@ class ComputerPlayer(Player):
                 if self.grid[y][x] != -1:
                     empties.append((x, y))
 
-        print(len(empties))
         return empties
+
+    def _cells_around(self, x_pos: int, y_pos: int) -> list[Tuple[int, int]]:
+        """Gets cells around a position"""
+
+        around_list = [
+
+            (x_pos, y_pos+1),
+            # # One DOWN
+            (x_pos, y_pos-1),
+            # # One LEFT
+            (x_pos-1, y_pos),
+            # # One RIGHT
+            (x_pos+1, y_pos),
+        ]
+
+        for position in around_list:
+            if position[0] < 0 or position[0] > 9 or position[1] < 0 or position[1] > 9:
+                around_list.remove(position)
+        return around_list
 
     def feed_back(self, hit: bool):
 
@@ -78,16 +96,22 @@ class ComputerPlayer(Player):
         if hit:
             self.target_grid[self.last_shot[1]][self.last_shot[0]] = 1
 
-            self.hunt_list = [
-                # One UP
-                # (last_x, last_y+1) if last_y != 9 else (last_x, last_y),
-                # # One DOWN
-                # (last_x, last_y-1) if last_y != 0 else (last_x, last_y),
-                # # One LEFT
-                # (last_x-1, last_y) if last_x != 0 else (last_x, last_y),
-                # # One RIGHT
-                # (last_x+1, last_y) if last_x != 9 else (last_x, last_y),
-            ]
+            # self.hunt_list = [
+            #     # One UP
+            #     (last_x, last_y+1) if last_y != 9 else None,
+            #     # # One DOWN
+            #     (last_x, last_y-1) if last_y != 0 else None,
+            #     # # One LEFT
+            #     (last_x-1, last_y) if last_x != 0 else None,
+            #     # # One RIGHT
+            #     (last_x+1, last_y) if last_x != 9 else None,
+            # ]
+            # self.hunt_list = []
+            # if last_x < 0 or last_x > 9 or last_y < 0 or last_y > 9:
+            #     pass
+            # else:
+            #     self.hunt_list.append()
+            self.hunt_list = self._cells_around(last_x, last_y)
 
         else:
             self.target_grid[self.last_shot[1]][self.last_shot[0]] = -1

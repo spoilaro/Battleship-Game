@@ -9,7 +9,6 @@ import os
 import random
 from typing import Tuple
 from battleship.PrettyPrint import PrettyPrint
-import os
 
 
 pp = PrettyPrint()
@@ -27,6 +26,7 @@ class Game:
         self.template_grid = self.deserialize_random_grid()
         self.human_player, self.ai_player = self.init_players()
 
+    @staticmethod  # Static for using this method without the instance
     def deserialize_random_grid():
         """
             Select random grid template from templates directory

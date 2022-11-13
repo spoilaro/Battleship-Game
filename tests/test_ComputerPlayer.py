@@ -36,11 +36,13 @@ class TestComputerPlayer(unittest.TestCase):
 
         self.players = [p1, p2]
 
-    def test_run(self):
+    def run_game(self) -> ComputerPlayer:
 
-        starting_player = random.choice(self.players)
-        self.players.remove(starting_player)
-        other_player = self.players[0]
+        player_list = self.players.copy()
+
+        starting_player = random.choice(player_list)
+        player_list.remove(starting_player)
+        other_player = player_list[0]
 
         pp.pprint(f"{starting_player} starts")
 
@@ -56,23 +58,21 @@ class TestComputerPlayer(unittest.TestCase):
             starting_player.feed_back(
                 other_player.check_hit(starting_player.fire()))
             if not other_player.status():
-                print("WINNER")
-                # return starting_player
-                self.assertTrue(starting_player,
-                                "Starting player should exist")
+                return starting_player
 
             other_player.feed_back(
                 starting_player.check_hit(other_player.fire()))
-
             if not starting_player.status():
-                # return other_player
-                print("WINNER")
-                self.assertTrue(starting_player,
-                                "Starting player should exist")
+                return other_player
 
             os.system('cls' if os.name == 'nt' else 'clear')
             print(starting_player.grid)
             print(starting_player.target_grid)
+
+    def test_run(self):
+
+        winner = self.run_game()
+        self.assertTrue(winner, "Winner should exist")
 
 
 if __name__ == '__main__':
