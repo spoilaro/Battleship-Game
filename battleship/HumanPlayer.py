@@ -77,15 +77,15 @@ class HumanPlayer(Player):
                 print("Example: A4")
                 raw_input = input(
                     f"Ship [{''.join(ship.size*'X')}]: ")
-                raw_x_pos = raw_input[0]
-                raw_y_pos = raw_input[1]
 
                 # Added error handling based on the feedback request 18/11/2022
                 try:
+                    raw_x_pos = raw_input[0]
+                    raw_y_pos = raw_input[1]
                     # Converts the input to index, e.g A => 0
                     x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
                     y_pos = int(raw_y_pos)
-                except ValueError:
+                except (ValueError, IndexError):
                     pp.pprint(
                         """Input must be X and Y coordinates, for example 'C1'""")
                     time.sleep(2)
@@ -124,7 +124,7 @@ class HumanPlayer(Player):
                 x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
                 y_pos = int(raw_y_pos)
 
-            except ValueError:
+            except (ValueError, IndexError):
                 pp.pprint(
                     """Input must be X and Y coordinates, for example 'C1'""")
                 time.sleep(2)
