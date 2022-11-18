@@ -80,9 +80,16 @@ class HumanPlayer(Player):
                 raw_x_pos = raw_input[0]
                 raw_y_pos = raw_input[1]
 
-                # Converts the input to index, e.g A => 0
-                x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
-                y_pos = int(raw_y_pos)
+                # Added error handling based on the feedback request 18/11/2022
+                try:
+                    # Converts the input to index, e.g A => 0
+                    x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
+                    y_pos = int(raw_y_pos)
+                except ValueError:
+                    pp.pprint(
+                        """Input must be X and Y coordinates, for example 'C1'""")
+                    time.sleep(2)
+                    continue
 
                 # Ask for the ship direction
                 direction = input("Ship direction (V/H): ")
@@ -90,7 +97,6 @@ class HumanPlayer(Player):
                 if direction != "V" and direction != "H":
                     print("Direction is not valid!")
                     time.sleep(2)
-
                     continue
 
                 # Validate the input coordinates
@@ -110,11 +116,19 @@ class HumanPlayer(Player):
         while (True):
             raw_input = input("Cordinates for the shot (A0-J9): ")
 
-            raw_x_pos = raw_input[0]
-            raw_y_pos = raw_input[1]
-            # Converts the input to index, e.g A => 0
-            x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
-            y_pos = int(raw_y_pos)
+            # Added error handling based on the feedback request 18/11/2022
+            try:
+                raw_x_pos = raw_input[0]
+                raw_y_pos = raw_input[1]
+                # Converts the input to index, e.g A => 0
+                x_pos = int(ord(raw_x_pos.lower()) - 96) - 1
+                y_pos = int(raw_y_pos)
+
+            except ValueError:
+                pp.pprint(
+                    """Input must be X and Y coordinates, for example 'C1'""")
+                time.sleep(2)
+                continue
 
             if self.validate_input(x_pos, y_pos) and len(raw_input) == 2:
                 break
